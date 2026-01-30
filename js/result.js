@@ -1,5 +1,7 @@
 const key = localStorage.getItem("mobby_scatter_key");
-const type = MOBBY.typeMap[key];
+const gender = localStorage.getItem("mobby_scatter_gender");
+const typeMap = (gender === "male" && MOBBY.boysTypeMap) ? MOBBY.boysTypeMap : MOBBY.typeMap;
+const type = typeMap ? typeMap[key] : undefined;
 
 const nameEl = document.getElementById("typeName");
 const descEl = document.getElementById("typeDesc");

@@ -1,11 +1,41 @@
-const list = document.getElementById("questionList");
+﻿const list = document.getElementById("questionList");
 const btn = document.getElementById("btnToResult");
 const warn = document.getElementById("warn");
+const genderBox = document.getElementById("genderBox");
+const genderWarn = document.getElementById("genderWarn");
+const genderButtons = document.querySelectorAll(".genderBtn");
 
-const answers = Array(MOBBY.questions.length).fill(null); // "A" or "B"
+let selectedGender = localStorage.getItem("mobby_scatter_gender");
+let currentQuestions = MOBBY.questions;
+let answers = Array(currentQuestions.length).fill(null); // "A" or "B"
+
+function getQuestionsForGender(gender){
+  if(gender === "male" && Array.isArray(MOBBY.boysQuestions)){
+    return MOBBY.boysQuestions;
+  }
+  return MOBBY.questions;
+}
+
+function initQuestions(){
+  currentQuestions = getQuestionsForGender(selectedGender);
+  answers = Array(currentQuestions.length).fill(null);
+  render();
+}
+
+function setGender(gender){
+  selectedGender = gender;
+  localStorage.setItem("mobby_scatter_gender", gender);
+  genderWarn.style.display = "none";
+  list.classList.toggle("locked", !selectedGender);
+  genderButtons.forEach(btnEl=>{
+    btnEl.classList.toggle("selected", btnEl.dataset.gender === gender);
+  });
+  warn.style.display = "none";
+  initQuestions();
+}
 
 function makeChoice(qIndex, letter){
-  const q = MOBBY.questions[qIndex];
+  const q = currentQuestions[qIndex];
   const data = (letter==="A") ? q.A : q.B;
 
   const div = document.createElement("div");
@@ -15,6 +45,12 @@ function makeChoice(qIndex, letter){
   div.innerHTML = `<strong>${letter}：${data.t}</strong><span>${data.s}</span>`;
 
   const pick = ()=>{
+    if(!selectedGender){
+      genderWarn.textContent = "性別を選択してください。";
+      genderWarn.style.display = "";
+      if(genderBox){ genderBox.scrollIntoView({behavior:"smooth", block:"center"}); }
+      return;
+    }
     answers[qIndex] = letter;
     // toggle selected within this question
     const parent = div.parentElement;
@@ -32,7 +68,7 @@ function makeChoice(qIndex, letter){
 
 function render(){
   list.innerHTML = "";
-  MOBBY.questions.forEach((q, i)=>{
+  currentQuestions.forEach((q, i)=>{
     const item = document.createElement("div");
     item.className = "qItem";
     item.innerHTML = `<p class="qTitle">Q${i+1}. ${q.text}</p>`;
@@ -52,7 +88,7 @@ function computeBits(){
   const axisScores = [0,0,0,0];
   const axisCounts = [0,0,0,0];
 
-  MOBBY.questions.forEach((q, i)=>{
+  currentQuestions.forEach((q, i)=>{
     axisCounts[q.axis] += 1;
     if(answers[i]==="A") axisScores[q.axis] += 1;
   });
@@ -61,13 +97,19 @@ function computeBits(){
   const bits = axisScores.map((s, axis)=>{
     if(s===2) return 1;
     if(s===0) return 0;
-    const firstIndex = MOBBY.questions.findIndex(q=>q.axis===axis);
+    const firstIndex = currentQuestions.findIndex(q=>q.axis===axis);
     return answers[firstIndex] === "A" ? 1 : 0;
   });
   return bits.join(""); // "1110" など
 }
 
 btn.addEventListener("click", ()=>{
+  if(!selectedGender){
+    genderWarn.textContent = "性別を選択してください。";
+    genderWarn.style.display = "";
+    if(genderBox){ genderBox.scrollIntoView({behavior:"smooth", block:"center"}); }
+    return;
+  }
   const missing = answers.findIndex(a=>a===null);
   if(missing !== -1){
     warn.textContent = `未回答があります（Q${missing+1}）。AかBを選んでね！`;
@@ -82,4 +124,18 @@ btn.addEventListener("click", ()=>{
   location.href = "result.html";
 });
 
-render();
+genderButtons.forEach(btnEl=>{
+  btnEl.addEventListener("click", ()=>{
+    setGender(btnEl.dataset.gender);
+  });
+});
+
+list.classList.toggle("locked", !selectedGender);
+if(selectedGender){
+  setGender(selectedGender);
+} else {
+  initQuestions();
+}
+
+
+

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
@@ -23,6 +23,15 @@
       <h2 class="h2">質問（A/Bをタップ）</h2>
       <p class="small">迷ったら「より恥ずかしい方」「よりやりがちな方」。</p>
 
+      <div id="genderBox" class="genderBox">
+        <p class="h2">性別</p>
+        <div class="genderChoices">
+          <button class="genderBtn" type="button" data-gender="female">女性</button>
+          <button class="genderBtn" type="button" data-gender="male">男性</button>
+        </div>
+        <p id="genderWarn" class="warn" style="display:none;"></p>
+      </div>
+
       <div id="questionList" class="qList"></div>
 
       <button id="btnToResult" class="btn" type="button">
@@ -37,3 +46,11 @@
   <script src="js/quiz.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
