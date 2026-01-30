@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>結果 | 学校モビー散弾 簡易ver</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>
+          <div class="title">判定結果</div>
+          <div class="sub">あなたの恋の癖タイプ</div>
+        </div>
+      </div>
+      <a class="pill link" href="index.html">TOPへ</a>
+    </header>
+
+    <section class="card">
+      <div class="resultHead">
+        <div>
+          <div class="k">あなたのタイプ</div>
+          <h1 id="typeName" class="resultTitle">—</h1>
+          <p id="typeDesc" class="resultDesc">—</p>
+          <div id="tags" class="tagrow"></div>
+        </div>
+
+        <div class="imgBox">
+          <img id="typeImg" alt="type image" />
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="ctaBox">
+        <div class="ctaTitle">もっと詳しく知りたい？</div>
+        <p class="small">
+          この簡易verは「恋の癖」だけでざっくり判定。<br />
+          <b>公式版</b>でやると、もっと詳細な結果（解説・相性・あるある）が出ます。
+        </p>
+        <a class="btn" id="officialLink" href="#" target="_blank" rel="noopener">
+          公式版で診断する
+        </a>
+        <button class="btn ghost" id="btnRetry" type="button">もう一回やる</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/result.js"></script>
+</body>
+</html>
