@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap");
+
 :root{
   --bg:#fff6fb;
   --card:#ffffff;
@@ -172,6 +174,44 @@ body{
 .imgBox img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover}
 .ctaBox{display:flex;flex-direction:column;gap:10px}
 .ctaTitle{font-weight:1000}
+.floatCard{margin-top:16px}
+.floatGallery{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:12px;
+  margin-top:10px;
+}
+@media(min-width:720px){
+  .floatGallery{grid-template-columns:repeat(4, minmax(0,1fr))}
+}
+.floatItem{
+  border:2px solid var(--line);
+  border-radius: 16px;
+  overflow:hidden;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 14px 28px rgba(139,184,255,.16);
+  animation: floaty 5s ease-in-out infinite;
+}
+.floatItem img{
+  width:100%;
+  display:block;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+.floatCap{
+  padding:8px 10px 10px;
+  font-size:12px;
+  font-weight:800;
+  font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+  color:var(--ink);
+  text-align:center;
+  background: rgba(255,255,255,.9);
+  border-top:1px solid var(--line);
+}
+.floatItem-1{animation-delay:.0s}
+.floatItem-2{animation-delay:.6s}
+.floatItem-3{animation-delay:1.2s}
+.floatItem-4{animation-delay:1.8s}
 
 @keyframes popIn{
   from{transform: translateY(6px) scale(.98);opacity:0}

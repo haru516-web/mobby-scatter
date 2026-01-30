@@ -36,7 +36,45 @@
         ※結果は簡易版。公式版に進むと、もっと詳しい結果が出ます。
       </p>
     </section>
+
+    <section class="card floatCard">
+      <h2 class="h2">診断キャラ</h2>
+      <p class="small">ランダムで4枚表示中</p>
+      <div id="floatingGallery" class="floatGallery"></div>
+    </section>
   </main>
+
+  <script src="js/data.js"></script>
+  <script>
+    (function(){
+      const list = (window.MOBBY && Array.isArray(MOBBY.imageList)) ? MOBBY.imageList.slice() : [];
+      if (!list.length) return;
+      // Shuffle and pick 4
+      for (let i = list.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      const picks = list.slice(0, 4);
+      const base = MOBBY.imageBase || "assets/types/";
+      const box = document.getElementById("floatingGallery");
+      const prettyName = (fileName)=>{
+        return fileName.replace(/\.(jpg|png)$/i, "");
+      };
+      picks.forEach((file, idx)=>{
+        const div = document.createElement("div");
+        div.className = `floatItem floatItem-${idx+1}`;
+        const img = document.createElement("img");
+        img.src = encodeURI(base + file);
+        img.alt = prettyName(file);
+        const cap = document.createElement("div");
+        cap.className = "floatCap";
+        cap.textContent = prettyName(file);
+        div.appendChild(img);
+        div.appendChild(cap);
+        box.appendChild(div);
+      });
+    })();
+  </script>
 </body>
 </html>
 
