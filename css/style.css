@@ -213,6 +213,24 @@ body{
 .floatItem-3{animation-delay:1.2s}
 .floatItem-4{animation-delay:1.8s}
 
+/* Mobile layout tweaks */
+@media (max-width: 600px){
+  .wrap{padding:18px 12px 34px;}
+  .top{flex-direction:column;align-items:flex-start;gap:8px;}
+  .pill{align-self:flex-start;}
+  .hero h1{font-size:20px;line-height:1.35}
+  .btn{padding:13px 12px}
+  .small{font-size:11px}
+  .card{padding:16px}
+  .qTitle{font-size:13px}
+  .choice strong{font-size:13px}
+  .choice span{font-size:11px}
+  .genderChoices{grid-template-columns:1fr}
+  .floatGallery{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .resultHead{grid-template-columns:1fr}
+  .tagrow{gap:6px}
+}
+
 @keyframes popIn{
   from{transform: translateY(6px) scale(.98);opacity:0}
   to{transform: translateY(0) scale(1);opacity:1}
